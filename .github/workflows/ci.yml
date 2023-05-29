@@ -1,0 +1,27 @@
+name: Build and test
+
+on: [push]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    # Install Go
+    - name: Go | Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.15
+    # Build MinIO
+    - name: MinIO | Install MinIO
+      run: |
+        wget https://dl.min.io/server/minio/release/linux-amd64/minio
+        chmod +x minio
+        sudo mv minio /usr/local/bin/
+    # Run MinIO
+    - name: MinIO | Run MinIO
+      run: |
+        MINIO_REGION=us-east-1 MINIO_ACCESS_KEY=admin MINIO_SECRET_KEY=password minio server minio-data
+
+     
