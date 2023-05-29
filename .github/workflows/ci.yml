@@ -23,7 +23,6 @@ jobs:
     - name: MinIO | Run MinIO
       run: |
         mkdir -p logs
-        MINIO_REGION=us-east-1 MINIO_ACCESS_KEY=admin MINIO_SECRET_KEY=password minio server minio-data > logs/minio.log 2>&1
+        MINIO_REGION=us-east-1 MINIO_ACCESS_KEY=admin MINIO_SECRET_KEY=password minio server minio-data > logs/minio.log 2>&1 &
         sleep 5
         cat logs/minio.log
-     
